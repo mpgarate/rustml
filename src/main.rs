@@ -18,7 +18,7 @@ fn coefficients_sgd(data: &Vec<Vec<f64>>, learn_rate: f64, iterations: usize) ->
         let mut sum_error = 0f64;
 
         for row in data.iter() {
-            let expected = row.iter().last().unwrap();
+            let expected = row.last().unwrap();
             let p = predict(&row, &coefficients);
 
             let error = p - expected;
