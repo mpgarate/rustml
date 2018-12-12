@@ -18,7 +18,7 @@ fn coefficients_sgd(data: &Vec<Vec<f64>>, learn_rate: f64, iterations: usize) ->
         let mut sum_error = 0f64;
 
         for row in data.iter() {
-            let expected = row.iter().last().unwrap().clone();
+            let expected = row.iter().last().unwrap();
             let p = predict(&row, &coefficients);
 
             let error = p - expected;
@@ -45,13 +45,13 @@ fn normalize(data: Vec<Vec<f64>>) -> Vec<Vec<f64>> {
     let mut maxes = vec![f64::NEG_INFINITY; data[0].len()];
 
     for line in data.iter() {
-        for (i, val) in line.iter().enumerate() {
-            if val > &maxes[i] {
-                maxes[i] = val.clone();
+        for (i, &val) in line.iter().enumerate() {
+            if val > maxes[i] {
+                maxes[i] = val
             }
 
-            if val < &mins[i] {
-                mins[i] = val.clone();
+            if val < mins[i] {
+                mins[i] = val
             }
         }
     }
@@ -87,7 +87,7 @@ fn main() {
     let coefficients = coefficients_sgd(&dataset, 0.01f64, 50);
 
     for row in dataset {
-        let expected = row.iter().last().unwrap().clone();
+        let expected = row.iter().last().unwrap();
         let p = predict(&row, &coefficients);
 
         println!("predict: {}, expected: {}", p, expected);
